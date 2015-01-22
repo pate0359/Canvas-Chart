@@ -6,17 +6,16 @@ var values;
 
 document.addEventListener("DOMContentLoaded", function () {
 	//set global vars for canvas and context
-	canvas = document.querySelector("#myCanvas");
+	canvas = document.querySelector("#pieCanvas");
 	context = canvas.getContext("2d");
-
+	
 	$.getJSON('/js/cheese.json', function (data) {
 		console.log('JSON data received:', data.segments);
 		values = data.segments;
 		showPie();
+		showRadar();
+		
 	});
-
-
-
 });
 
 function showPie() {
@@ -133,4 +132,39 @@ function getMin(arr, prop) {
 			min = arr[i];
 	}
 	return min;
+}
+
+//Bar graph
+function showRadar()
+{
+	var labelsArr=[];
+	var valuesArr=[];
+	
+	//	total is the sum of all the values
+	for (var i = 0; i < values.length; i++) {
+		labelsArr.push(values[i].label);
+		valuesArr.push(values[i].value);
+	}
+	
+	//Prepare graph data
+	var radarChartData = {
+		labels: labelsArr,
+		datasets: [
+			{
+				label: "",
+				fillColor: "rgba(115,115,115,0.2)",
+				strokeColor: "rgba(115,115,115,0.5)",
+				pointColor: "rgba(115,115,115,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(115,115,115,1)",
+				data: valuesArr
+			}
+		]
+	};
+	
+	//Draw radar
+	window.myRadar = new Chart(document.getElementById("radarCanvas").getContext("2d")).Radar(radarChartData, {
+			responsive: false
+		});
 }
