@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	context = canvas.getContext("2d");
 	
 	$.getJSON('./js/cheese.json', function (data) {
-		console.log('JSON data received:', data.segments);
+		//console.log('JSON data received:', data.segments);
 		values = data.segments;
 		showPie();
 		showRadar();
