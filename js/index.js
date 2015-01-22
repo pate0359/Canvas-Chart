@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	canvas = document.querySelector("#pieCanvas");
 	context = canvas.getContext("2d");
 	
-	$.getJSON('../cheese.json', function (data) {
+	$.getJSON('././cheese.json', function (data) {
 		console.log('JSON data received:', data.segments);
 		values = data.segments;
 		showPie();
